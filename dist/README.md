@@ -1,4 +1,4 @@
-# Read Me Generator
+# Title
 ![alt text](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
 ## Table of Contents
 
@@ -12,19 +12,19 @@
 
 
 ## Description
-An app that generates proffessional README.md files for GitHub repositories.
+An app.
 ## Installation
-Install Node.js, clone repo, npm install inquirer
+Install.
 ## Usage
-Run index.js to initialize app, then respond to command line inquiries.
+Use.
 ## Contributing
-Contribution is open to the public.
+Contribute.
 ## Tests
-Testing should be conducted on a branch other than main.
+Test.
 ## License
 MIT License
 
-Copyright (c) 2021 seanPatrickArnold
+Copyright (c) 2021 username
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,11 +44,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ## Questions
-Username: seanPatrickArnold
+Username: username
 
-[GitHub Profile](https://github.com/seanPatrickArnold)
+[Github Profile](https://github.com/username)
 
-Email: sean.p.arnold@gmail.com
+Email: email@email.email
 
 
 

@@ -1,146 +1,181 @@
-const { writeFile, copyFile } = require('./utils/generate-site.js');
+// TODO: Include packages needed for this application
+const fs = require('fs');
 const inquirer = require('inquirer');
-const generatePage = require('./src/page-template');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
-const promptUser = () => {
-  return inquirer.prompt([
+// TODO: Create an array of questions for user input
+const questions = [
     {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name? (Required)',
-      validate: nameInput => {
-        if (nameInput) {
-          return true;
-        } else {
-          console.log('Please enter your name!');
-          return false;
-        }
-      }
-    },
-    {
-      type: 'input',
-      name: 'github',
-      message: 'Enter your GitHub Username (Required)',
-      validate: githubInput => {
-        if (githubInput) {
-          return true;
-        } else {
-          console.log('Please enter your GitHub username!');
-          return false;
-        }
-      }
-    },
-    {
-      type: 'confirm',
-      name: 'confirmAbout',
-      message: 'Would you like to enter some information about yourself for an "About" section?',
-      default: true
-    },
-    {
-      type: 'input',
-      name: 'about',
-      message: 'Provide some information about yourself:',
-      when: ({ confirmAbout }) => confirmAbout
-    }
-  ]);
-};
-
-const promptProject = portfolioData => {
-  console.log(`
-=================
-Add a New Project
-=================
-`);
-
-  // If there's no 'projects' array property, create one
-  if (!portfolioData.projects) {
-    portfolioData.projects = [];
-  }
-  return inquirer
-    .prompt([
-      {
         type: 'input',
-        name: 'name',
-        message: 'What is the name of your project? (Required)',
-        validate: nameInput => {
-          if (nameInput) {
-            return true;
-          } else {
-            console.log('You need to enter a project name!');
-            return false;
-          }
+        name: 'title',
+        message: 'What is your title? (Required)',
+        default: 'Title',
+        validate: titleInput => {
+            if (titleInput) {
+                return true;
+            } else {
+                console.log('Please enter your title!');
+                return false;
+            }
         }
-      },
-      {
+    },
+    {
         type: 'input',
         name: 'description',
-        message: 'Provide a description of the project (Required)',
+        message: 'What is your description? (Required)',
+        default: 'An app.',
         validate: descriptionInput => {
-          if (descriptionInput) {
-            return true;
-          } else {
-            console.log('You need to enter a project description!');
-            return false;
-          }
+            if (descriptionInput) {
+                return true;
+            } else {
+                console.log('Please enter your description!');
+                return false;
+            }
         }
-      },
-      {
-        type: 'checkbox',
-        name: 'languages',
-        message: 'What did you this project with? (Check all that apply)',
-        choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
-      },
-      {
+    },
+    {
         type: 'input',
-        name: 'link',
-        message: 'Enter the GitHub link to your project. (Required)',
-        validate: linkInput => {
-          if (linkInput) {
-            return true;
-          } else {
-            console.log('You need to enter a project GitHub link!');
-            return false;
-          }
+        name: 'installation',
+        message: 'What is your installation instruction? (Required)',
+        default: 'Install.',
+        validate: installationInput => {
+            if (installationInput) {
+                return true;
+            } else {
+                console.log('Please enter your installation instruction!');
+                return false;
+            }
         }
-      },
-      {
-        type: 'confirm',
-        name: 'feature',
-        message: 'Would you like to feature this project?',
-        default: false
-      },
-      {
-        type: 'confirm',
-        name: 'confirmAddProject',
-        message: 'Would you like to enter another project?',
-        default: false
-      }
-    ])
-    .then(projectData => {
-      portfolioData.projects.push(projectData);
-      if (projectData.confirmAddProject) {
-        return promptProject(portfolioData);
-      } else {
-        return portfolioData;
-      }
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'What is your usage information? (Required)',
+        default: 'Use.',
+        validate: usageInput => {
+            if (usageInput) {
+                return true;
+            } else {
+                console.log('Please enter your usage information!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'contributing',
+        message: 'What are your contribution guidelines? (Required)',
+        default: 'Contribute.',
+        validate: contributingInput => {
+            if (contributingInput) {
+                return true;
+            } else {
+                console.log('Please enter your contribution guidelines!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'tests',
+        message: 'What are your test instructions? (Required)',
+        default: 'Test.',
+        validate: testsInput => {
+            if (testsInput) {
+                return true;
+            } else {
+                console.log('Please enter your test instructions!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'checkbox',
+        name: 'license',
+        message: 'What is the project license? (Check one)',
+        choices: ['MIT', 'Not-MIT'],
+        default: ['MIT'],
+        validate: licenseInput => {
+            console.log(licenseInput);
+            if (licenseInput && licenseInput.length === 1) {
+                return true;
+            } else {
+                if (!licenseInput) {
+                    console.log('Please enter your test instructions!');
+                    return false;
+                }
+                else if (licenseInput.length > 1) {
+                    console.log('Please select only one license!');
+                    return false;
+                }
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'username',
+        message: 'What is your username? (Required)',
+        default: 'username',
+        validate: usernameInput => {
+            if (usernameInput) {
+                return true;
+            } else {
+                console.log('Please enter your username!');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is your email? (Required)',
+        default: 'email@email.email',
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter your email!');
+                return false;
+            }
+        }
+    },
+];
+
+// TODO: Create a function to write README file
+const writeToFile = (filename, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(filename, data, err => {
+            // if there's an error, reject the Promise and send the error to the Promise's `.catch()` method
+            if (err) {
+                reject(err);
+                // return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
+                return;
+            }
+
+            // if everything went well, resolve the Promise and send the successful data to the `.then()` method
+            resolve({
+                ok: true,
+                message: 'File created!'
+            });
+        });
     });
 };
 
-promptUser()
-  .then(promptProject)
-  .then(portfolioData => {
-    return generatePage(portfolioData);
-  })
-  .then(pageHTML => {
-    return writeFile(pageHTML);
-  })
-  .then(writeFileResponse => {
-    console.log(writeFileResponse);
-    return copyFile();
-  })
-  .then(copyFileResponse => {
-    console.log(copyFileResponse);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// TODO: Create a function to initialize app
+function init() {
+    const promptUser = () => {
+        return inquirer.prompt(questions);
+    }
+
+    promptUser()
+        .then(data => generateMarkdown(data))
+        .then(data => {
+            return writeToFile('./dist/README.md', data)
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+// Function call to initialize app
+init();
