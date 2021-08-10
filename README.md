@@ -1,30 +1,31 @@
-<h1>Title</h1>
-<p>MIT</p>
-<h2>Table of Contents</h2>
-<ul>
-  <li><a href='#license'>License</a></li>
-  <li><a href='#description'>Description</a></li>
-  <li><a href='#installation'>Installation</a></li>
-  <li><a href='#usage'>Usage</a></li>
-  <li><a href='#contributing'>Contributing</a></li>
-  <li><a href='#tests'>Tests</a></li>
-  <li><a href='#questions'>Questions</a></li>
-</ul>
+# Title
+![alt text](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
+## Table of Contents
 
-<h2 id='license'>License</h2>
-<p>License Provided by MIT.</p>
+* [Description](#description)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [License](#license)
+* [Questions](#questions)
 
-<h2 id='description'>Description</h2>
-<p>An app.</p>
-<h2 id='installation'>Installation</h2>
-<p>Install.</p>
-<h2 id='usage'>Usage</h2>
-<p>Use.</p>
-<h2 id='contributing'>Contributing</h2>
-<p>Contribute.</p>
-<h2 id='tests'>Tests</h2>
-<p>Test.</p>
-<h2 id='questions'>Questions</h2>
-<p>Username: username.</p>
-<p>Email: email@email.email</p>
+
+## Description
+An app.
+## Installation
+Install.
+## Usage
+Use.
+## Contributing
+Contribute.
+## Tests
+Test.
+## Questions
+Username: username.
+Email: email@email.email
+## License
+License Provided by MIT.
+
+
 
