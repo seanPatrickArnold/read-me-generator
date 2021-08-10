@@ -1,4 +1,4 @@
-# Title
+# Title  of my App
 ![alt text](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
 ## Table of Contents
 
